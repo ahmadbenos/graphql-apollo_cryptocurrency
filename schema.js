@@ -13,6 +13,7 @@ const axios = require("axios").default;
 const CoinType = new GraphQLObjectType({
   name: "CoinType",
   fields: {
+    id: { type: GraphQLInt },
     name: { type: GraphQLString },
     symbol: { type: GraphQLString },
     price_usd: { type: GraphQLFloat },
@@ -46,8 +47,8 @@ const BaseQuery = new GraphQLObjectType({
       },
       resolve(value, args) {
         return axios
-          .get(`https://api.coinlore.net/api/tickers/?id=${args.id}`)
-          .then((res) => res.data)
+          .get(`https://api.coinlore.net/api/ticker/?id=${args.id}`)
+          .then((res) => res.data[0])
           .catch((err) => console.log(err));
       },
     },

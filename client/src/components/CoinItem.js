@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
+// function to check the price to determine arrow color
 function arrowColor(change) {
   if (change > 0) return "green";
   if (change < 0) return "red";
@@ -24,19 +26,22 @@ const CoinItem = ({
             className={`fas fa-lg ${
               percent_change_24h < 0 ? "fa-caret-down" : "fa-caret-up"
             }`}
-            style={{
-              color: arrowColor(percent_change_24h),
-            }}
           ></i>
           {percent_change_24h}%
         </span>
       </div>
       <div className="card-body">
-        <h4 className="card-title">Primary card title</h4>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
+        <div className="row">
+          <div className="col-md-10">
+            <h4 className="card-title">{name}</h4>
+            <p className="card-text">${price_usd.toLocaleString()}</p>
+          </div>
+          <div className="col-md-2 mt-1">
+            <Link to="/details" className="btn btn-outline-info">
+              Details
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
