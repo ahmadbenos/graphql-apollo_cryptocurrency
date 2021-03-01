@@ -6,7 +6,7 @@ import Coins from "./components/Coins";
 import CoinDetails from "./components/CoinDetails";
 
 const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
+  uri: "/graphql",
   cache: new InMemoryCache(),
 });
 

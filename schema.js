@@ -37,9 +37,7 @@ const BaseQuery = new GraphQLObjectType({
           .catch((err) => res.send({ err: "an error has occured" }));
       },
     },
-    // The following field is just to demonstrate getting a specific coin
-    // using graphql args, the GraphQLNonNull, and resolver function, so it's not actually
-    // used in this web app!
+
     coin: {
       type: CoinType,
       args: {
