@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // function to check the price to determine arrow color
-function arrowColor(change) {
+export function arrowColor(change) {
   if (change > 0) return "green";
   if (change < 0) return "red";
   return "white";
 }
 
 const CoinItem = ({
-  coin: { name, symbol, price_usd, percent_change_24h },
+  coin: { name, symbol, price_usd, percent_change_24h, id },
 }) => {
   return (
     <div className="card text-white bg-primary mb-3">
@@ -37,7 +37,7 @@ const CoinItem = ({
             <p className="card-text">${price_usd.toLocaleString()}</p>
           </div>
           <div className="col-md-2 mt-1">
-            <Link to="/details" className="btn btn-outline-info">
+            <Link to={`/details/${id}`} className="btn btn-outline-info">
               Details
             </Link>
           </div>

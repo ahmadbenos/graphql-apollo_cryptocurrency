@@ -5,6 +5,7 @@ import CoinItem from "./CoinItem";
 const COINS_QUERY = gql`
   query CoinsQuery {
     coins {
+      id
       name
       symbol
       price_usd
@@ -15,9 +16,13 @@ const COINS_QUERY = gql`
 
 const Coins = () => {
   const { loading, error, data } = useQuery(COINS_QUERY);
+  console.log(data);
   function RenderList() {
     if (loading) return <h4>Loading...</h4>;
-    if (error) return <p>An error occured!</p>;
+    if (error) {
+      console.log(error);
+      return <p>An error occured!</p>;
+    }
     console.log(data.coins);
     return data.coins.map((coin) => (
       <CoinItem key={Math.random()} coin={coin} />

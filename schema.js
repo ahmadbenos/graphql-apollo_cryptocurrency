@@ -34,7 +34,7 @@ const BaseQuery = new GraphQLObjectType({
         return axios
           .get("https://api.coinlore.net/api/tickers/?start=0&limit=10")
           .then((res) => res.data.data)
-          .catch((err) => console.log(err));
+          .catch((err) => res.send({ err: "an error has occured" }));
       },
     },
     // The following field is just to demonstrate getting a specific coin
@@ -49,7 +49,7 @@ const BaseQuery = new GraphQLObjectType({
         return axios
           .get(`https://api.coinlore.net/api/ticker/?id=${args.id}`)
           .then((res) => res.data[0])
-          .catch((err) => console.log(err));
+          .catch((err) => res.send({ err: "an error occured" }));
       },
     },
   },

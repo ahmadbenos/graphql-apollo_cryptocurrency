@@ -16,7 +16,7 @@ function App() {
         <div className="container">
           <h1 className="text-center mt-2">Crypto Prices</h1>
           <Route path="/" exact component={Coins} />
-          <Route path="/details" component={CoinDetails} />
+          <Route path="/details/:id" component={CoinDetails} />
         </div>
       </Router>
     </ApolloProvider>
