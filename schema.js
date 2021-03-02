@@ -34,6 +34,10 @@ const BaseQuery = new GraphQLObjectType({
         return axios
           .get("https://api.coinlore.net/api/tickers/?start=0&limit=10")
           .then((res) => res.data.data)
+        
+         // there isn't any res variable in the catch(below this line) but i just wanted graphql to send an error
+        // so that i use if(error) in the client side(apollo). I just didn't want to return an object with an error and a message with it(example: {err: "an error occured"})
+        // kinda lazy but forcing graphql to send an error was quicker than handling my own error object and handling it in the client side and doing if(data.err) lol
           .catch((err) => res.send({ err: "an error has occured" }));
       },
     },
@@ -47,6 +51,8 @@ const BaseQuery = new GraphQLObjectType({
         return axios
           .get(`https://api.coinlore.net/api/ticker/?id=${args.id}`)
           .then((res) => res.data[0])
+        
+        // same thing here as said above, no res variable, just forcing graphql to send an error to directly use if(error) in apollo
           .catch((err) => res.send({ err: "an error occured" }));
       },
     },
