@@ -35,10 +35,9 @@ const BaseQuery = new GraphQLObjectType({
           .get("https://api.coinlore.net/api/tickers/?start=0&limit=10")
           .then((res) => res.data.data)
         
-         // there isn't any res variable in the catch(below this line) but i just wanted graphql to send an error, pretty sure not a good practice but worked in the first place lmao.
-        // so that i use if(error) in the client side(apollo). I just didn't want to return an object with an error and a message with it(example: {err: "an error occured"})
-        // kinda lazy but forcing graphql to send an error was quicker than handling my own error object and handling it in the client side and doing if(data.err) lol
-          .catch((err) => res.send({ err: "an error has occured" }));
+         // In the .catch() below, I returned an object instead of an array to force graphql to send error just so that i directly handle the error in the client side(apollo)
+        // by doing if(error), probably not a good practice but it worked on the first try lmao.(can be done much better of course by return an array with an object etc...)
+          .catch((err) => ({ err: "an error has occured" }));
       },
     },
 
@@ -52,7 +51,10 @@ const BaseQuery = new GraphQLObjectType({
           .get(`https://api.coinlore.net/api/ticker/?id=${args.id}`)
           .then((res) => res.data[0])
         
-        // same thing here as said above, no res variable, just forcing graphql to send an error to directly use if(error) in apollo
+        // same strategy here as above, but this time i added an undefined variable(res) to also force graphql in sending an error.
+        // CoinType is an object, so returning an array should make graphql send an error, but it didn't idk why. so i ended up just making things weird
+        // and did this res.send which doesnt even exist lmao. Of course error handling is done in a proper way as i do in all my other projects but it actually works this
+        // way and i kept it. Will definetly handle errors in the correct way next time. 
           .catch((err) => res.send({ err: "an error occured" }));
       },
     },
